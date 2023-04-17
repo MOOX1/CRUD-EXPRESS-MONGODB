@@ -16,7 +16,7 @@ const main = () => {
     const getUsersController = new GetUsersController(getUsersRepository);
 
     const { body, status } = await getUsersController.handle(req, res);
-    res.json(body).send(status);
+    res.json(body);
   });
 
   app.listen(process.env.PORT || 8000, () => console.log("server is on"));
