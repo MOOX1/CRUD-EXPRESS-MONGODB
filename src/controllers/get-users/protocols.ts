@@ -1,8 +1,9 @@
 import { IUser } from "../../models/IUser";
 import { IHttpResponse } from "../protocols";
+import { Response, Request } from "express";
 
 export interface IGetUsersController {
-  handle(): Promise<IHttpResponse<IUser>>;
+  handle(req: Request, res: Response<IUser[]>): Promise<IHttpResponse<IUser>>;
 }
 
 export interface IGetUsersRepository {

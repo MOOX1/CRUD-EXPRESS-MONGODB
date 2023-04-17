@@ -2,18 +2,24 @@ import { GetUsersRepository } from "./repositories/get-users-repository";
 import express from "express";
 import dotenv from "dotenv";
 import { GetUsersController } from "./controllers/get-users/get-users";
+import mongoClient from "./database/mongo";
 
-dotenv.config();
+const main = () => {
+  mongoClient.connect();
 
-const app = express();
+  dotenv.config();
 
-app.get("/users", async (req, res) => {
-  const getUsersRepository = new GetUsersRepository();
-  const getUsersController = new GetUsersController(getUsersRepository);
+  const app = express();
 
-  const { body, status } = await getUsersController.handle();
+  app.get("/users", async (req, res) => {
+    const getUsersRepository = new GetUsersRepository();
+    const getUsersController = new GetUsersController(getUsersRepository);
 
-  res.json(body).send(status);
-});
+    const { body, status } = await getUsersController.handle(req, res);
+    res.json(body).send(status);
+  });
 
-app.listen(process.env.PORT || 8000, () => console.log("server is on"));
+  app.listen(process.env.PORT || 8000, () => console.log("server is on"));
+};
+
+main();
