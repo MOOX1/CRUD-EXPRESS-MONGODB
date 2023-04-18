@@ -4,14 +4,7 @@ import User from "../models/UsersSchema/UsersSchema";
 
 export class GetUsersRepository implements IGetUsersRepository {
   async getUsers(): Promise<IUser[]> {
-    // const users = User.find();
-    return [
-      {
-        name: "vitor",
-        lastname: "meneses",
-        email: "teste2@teste.com",
-        password: "123",
-      },
-    ];
+    const users = await User.find();
+    return users;
   }
 }
